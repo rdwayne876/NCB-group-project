@@ -21,8 +21,9 @@ node_modules which contains all the modules for this project is selected to be i
 -TBA
 ## Folder Structure
 
-### Routes
-in the application, all routes created should be in the routes folder.
+### src
+contains projects index and server files
+- #### v? <br> Current API version
 
 ### Database Configuration
 in the application, all database setup should be under the lib folder.
