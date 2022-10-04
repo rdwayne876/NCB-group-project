@@ -21,12 +21,20 @@ node_modules which contains all the modules for this project is selected to be i
 -TBA
 ## Folder Structure
 
-### src
-contains projects index and server files
-- #### v? <br> Current API version
+### controllers
+Actions to be carried out after hitting an endpoint is defined in a controller
 
-### Database Configuration
-in the application, all database setup should be under the lib folder.
+### database
+All database queries are made in the database folder
+
+### models
+All schemas are defined in the models folder
+
+### routes
+Routing operations are defined in routes.js files
+
+### services
+All business logic is handled in services.
 
 ### server
 in the application the index.js should be at the root of the application. 
