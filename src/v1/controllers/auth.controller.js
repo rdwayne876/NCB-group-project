@@ -10,6 +10,7 @@ const registerUser = async( req, res) => {
         !body.password ||
         !body.cellPhone ||
         !body.username ||
+        !body.trn ||
         !body.idType ||
         !body.idNumber ||
         !body.idExpDate 
@@ -18,8 +19,7 @@ const registerUser = async( req, res) => {
         res.status( 400).json({
             status: "FAILED",
             data: {
-                error:
-                    "All fields are required"
+                error: "All fields are required" 
             }
         })
         return
@@ -45,7 +45,8 @@ const registerUser = async( req, res) => {
         username: body.username,
         dateOfBirth: body.dateOfBirth,
         gender: body.gender,
-        idVerification: createdId._id
+        idVerification: createdId._id,
+        trn: body.trn
     }
 
     const registeredUser = await authService.registerUser( newUser, body.password)
@@ -55,4 +56,31 @@ const registerUser = async( req, res) => {
         status: "SUCCESS",
         data: registeredUser
     })
+}
+
+const login = async( req, res) => {
+    //get login credentials from req.body
+    const { body} = req
+
+    //check if all required fields are present
+    if( !body.username || !body.password) {
+        res.status( 400).json({
+            status: "FAILED",
+            data: {
+                error: "All fields required"
+            }
+        })
+    }
+
+    const user = await authService.login( body.username, body.pasword)
+
+    res.status( 200).json({
+        status: "SUCCESS",
+        data: user
+    })
+}
+
+module.exports ={
+    registerUser,
+    login
 }

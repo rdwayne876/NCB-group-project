@@ -45,6 +45,11 @@ const userSchema = new mongoose.Schema({
         ref: "IdVerification",
         required: [true, "An id must be specified to verify user"]
     },
+    trn:{
+        type: String,
+        required: [ true, "TRN must be specified"],
+        unique: [ true, "One TRN per user"]
+    },
     mailingAddress:{
         type:mongoose.Schema.Types.ObjectId,
         ref: "Address",
