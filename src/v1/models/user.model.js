@@ -15,6 +15,10 @@ const userSchema = new mongoose.Schema({
         required: [ true, "Email must be specified"],
         unique: [ true, "Only one email address per user"]
     },
+    password:{
+        type: String,
+        required: [ true, "Password must be specified"]
+    },
     cellPhone:{
         type: String,
         unique: [ true, "Only one phone number per user"],
@@ -29,7 +33,8 @@ const userSchema = new mongoose.Schema({
         required: [ true, "username must be specified"]
     },
     dateOfBirth:{
-        type: Date       
+        type: Date,
+        required: [true, "D.O.B must be specified"]
     },
     gender: {
         type: String,
