@@ -1,4 +1,4 @@
-const database = require('./db')
+const database = require('../db/db')
 require( 'dotenv').config()
 app = require('./index')
 
