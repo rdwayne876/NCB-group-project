@@ -14,11 +14,9 @@ node_modules which contains all the modules for this project is selected to be i
 
 ### Starting the Server.
 
--TBA
+-npm run dev
 
-### Run the Application.
 
--TBA
 ## Folder Structure
 
 ### controllers
