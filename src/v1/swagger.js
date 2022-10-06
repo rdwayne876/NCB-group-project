@@ -1,6 +1,6 @@
 const swaggerJSDoc = require("swagger-jsdoc")
 const swaggerUi = require("swagger-ui-express")
-
+require( './routes/auth.routes.js')
 //API meta info
 const options = {
     definition: {
@@ -16,7 +16,7 @@ const options = {
             }
         ]
     },
-    apis: []
+    apis: [ './routes/auth.routes.js']
 }
 
 // Docs in JSON format

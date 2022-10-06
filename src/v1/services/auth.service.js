@@ -15,7 +15,7 @@ const registerUser = async( newUser, password) => {
 
     try {
         //Create user
-        const createdUser = await User.createUser( newUser)
+        const createdUser = await User.createUser( userToCreate)
         // generate access token
         const accessToken = createAccessToken({user: createdUser._id})
 
