@@ -1,5 +1,7 @@
 const swaggerJSDoc = require("swagger-jsdoc")
 const swaggerUi = require("swagger-ui-express")
+const hostname = '127.0.0.1';
+
 require( './routes/auth.routes.js')
 //API meta info
 const options = {
@@ -33,7 +35,7 @@ const swaggerDocs = ( app, port) => {
     })
 
     console.log(
-        `Version 1 Docs are available on http://localhost:${port}/api/v1/docs`
+        `Version 1 Docs are available at http://${hostname}:${port}/api/v1/docs`
     );
 }
 

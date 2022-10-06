@@ -1,3 +1,5 @@
+const idVerificationService = require( '../services/auth.service')
+
 const registerUser = async( req, res) => {
     //get user data from request
     const { body } = req
