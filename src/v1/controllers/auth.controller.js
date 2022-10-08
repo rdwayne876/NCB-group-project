@@ -1,3 +1,6 @@
+const idVerificationService = require( '../services/idVerification.service')
+const authService = require( '../services/auth.service')
+
 const registerUser = async( req, res) => {
     //get user data from request
     const { body } = req
@@ -33,29 +36,35 @@ const registerUser = async( req, res) => {
         image: body.idImage
     }
 
-    const createdId = await idVerificationService.saveNewId( newId)
+    try {
+        const createdId = await idVerificationService.saveNewId( newId)
+        console.log(createdId);
+        // save new user
+        const newUser = {
+            firstName: body.firstName,
+            lastName: body.lastName,
+            email: body.email, 
+            cellPhone: body.cellPhone,
+            homePhone: body.homePhone,
+            username: body.username,
+            dateOfBirth: body.dateOfBirth,
+            gender: body.gender,
+            idVerification: createdId._id,
+            trn: body.trn
+        }
+        const registeredUser = await authService.registerUser( newUser, body.password)
 
-    // save new user
-    const newUser = {
-        firstName: body.firstName,
-        lastName: body.lastName,
-        email: body.email, 
-        cellPhone: body.cellPhone,
-        homePhone: body.homePhone,
-        username: body.username,
-        dateOfBirth: body.dateOfBirth,
-        gender: body.gender,
-        idVerification: createdId._id,
-        trn: body.trn
-    }
-
-    const registeredUser = await authService.registerUser( newUser, body.password)
-    
-    //return registered user
-    res.status( 201).json({
-        status: "SUCCESS",
-        data: registeredUser
-    })
+        //return registered user
+        res.status( 201).json({
+            status: "SUCCESS",
+            data: registeredUser
+        })
+    } catch (error) {
+        console.error(error);
+        res
+          .status(error?.status || 500)
+          .send({ status: "FAILED", data: { error: error?.message || error } });
+      }
 }
 
 const login = async( req, res) => {

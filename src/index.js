@@ -6,6 +6,7 @@ const { morganLogs } = require('./middlewares/morgan')
 
 const v1Router = require( './v1/routes/index')
 // const v1AccountRouter = require( './v1/routes/account.routes')
+const v1AuthRouter = require( '../src/v1/routes/auth.routes')
 const v101AccountRouter = require( './v1.0.1/routes/account.routes')
 
 const app = express()
@@ -15,11 +16,14 @@ const app = express()
  */
 app.use( morgan('dev'))
 app.use( morganLogs)
+app.use( express.urlencoded({extended: true}))
+app.use(express.json())
 
 /**
  * APP ROUTING
  */
-//  app.use("/api/v1", v1Router);
+ app.use("/api/v1", v1Router);
+ app.use( "/api/v1/auth", v1AuthRouter)
 //  app.use('/api/v1/accounts', v1AccountRouter)
  app.use( '/api/v1.0.1/accounts', v101AccountRouter)
 

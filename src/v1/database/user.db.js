@@ -5,7 +5,7 @@ const createUser = async( newUser) => {
     //check for existing user by username or email
     const existingUser = await find(User, { email: newUser.email, username: newUser.email})
     
-    if( existingUser) {
+    if( existingUser.length != 0) {
         // throw error if user already exists
         throw {
             status: 409,
