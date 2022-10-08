@@ -24,7 +24,7 @@ const findUser = async( queryObject, options=[]) => {
     // Query db for user
     const user = await find( User, queryObject, options)
 
-    if( !user ) {
+    if( user.length == 0 ) {
         throw {
             status: 409,
             message: "User not found"
@@ -32,7 +32,7 @@ const findUser = async( queryObject, options=[]) => {
     }
 
     try{
-        return user
+        return user[0]
     } catch ( error) {
         throw { status: 500, message: error?.message || error}
     }

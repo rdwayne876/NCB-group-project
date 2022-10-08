@@ -81,7 +81,7 @@ const login = async( req, res) => {
         })
     }
 
-    const user = await authService.login( body.username, body.pasword)
+    const user = await authService.login( body.username, body.password)
 
     res.status( 200).json({
         status: "SUCCESS",
