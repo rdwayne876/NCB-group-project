@@ -63,7 +63,7 @@ const registerUser = async( req, res) => {
         console.error(error);
         res
           .status(error?.status || 500)
-          .send({ status: "FAILED", data: { error: error?.message || error } });
+          .json({ status: "FAILED", data: { error: error?.message || error } });
       }
 }
 
@@ -81,12 +81,21 @@ const login = async( req, res) => {
         })
     }
 
-    const user = await authService.login( body.username, body.password)
+    try {
+        const user = await authService.login( body.username, body.password)
 
-    res.status( 200).json({
-        status: "SUCCESS",
-        data: user
-    })
+        res.status( 200).json({
+            status: "SUCCESS",
+            data: user
+        })
+        
+    } catch (error) {
+        res
+          .status(error?.status || 500)
+          .json({ status: "FAILED", data: { error: error?.message || error } });
+    }
+
+    
 }
 
 module.exports ={

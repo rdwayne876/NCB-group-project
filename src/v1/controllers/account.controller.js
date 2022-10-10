@@ -1,14 +1,22 @@
 const accountService = require( '../services/account.service')
 
 const getAllAccounts = async( req, res) => {
-    //get all accounts from service
-    const allAccounts = await accountService.getAllAcounts()
 
-    // return all accounts
-    res.status(200).json({
-        status: "OK",
-        data: allAccounts
-    })
+    try {
+        //get all accounts from service
+        const allAccounts = await accountService.getAllAcounts()
+
+        // return all accounts
+        res.status(200).json({
+            status: "OK",
+            data: allAccounts
+        })
+    } catch (error) {
+        console.error(error);
+        res
+          .status(error?.status || 500)
+          .json({ status: "FAILED", data: { error: error?.message || error } })
+    }   
 }
 
 const getAccount = async( req, res) => {
@@ -26,16 +34,24 @@ const getAccount = async( req, res) => {
         return
     }
 
-    // get one account
-    const account = await accountService.getAccount( id)
+    try {
+        // get one account
+        const account = await accountService.getAccount( id)
 
-    // return account
-    res.status( 200).json({
-        status: "SUCCESS",
-        data: {
-            account
-        }
-    })
+        // return account
+        res.status( 200).json({
+            status: "SUCCESS",
+            data: {
+                account
+            }
+        })
+    } catch (error) {
+        console.error(error);
+        res
+          .status(error?.status || 500)
+          .json({ status: "FAILED", data: { error: error?.message || error } })
+    }
+    
 }
 
 const createAccount = async( req, res) => {
@@ -63,15 +79,23 @@ const createAccount = async( req, res) => {
         accType: body.accType,
         currency: body.currency
     }
-    // create account in service
-    const createdAccount = await accountService.createNewAccount( newAccount)
 
-    res.status( 201).json({
-        status: "SUCCESS",
-        data: {
-            createdAccount
-        }
-    })
+    try {
+        // create account in service
+        const createdAccount = await accountService.createAccount( newAccount)
+
+        res.status( 201).json({
+            status: "SUCCESS",
+            data: {
+                createdAccount
+            }
+        })
+    } catch (error) {
+        res
+          .status(error?.status || 500)
+          .json({ status: "FAILED", data: { error: error?.message || error } })
+    }
+    
 }
 
 const updateAccount = async( req, res) => {
@@ -89,16 +113,24 @@ const updateAccount = async( req, res) => {
         return
     }
 
-    //update info in the account service
-    const updatedAccount = await accountService.updateAccount( id, body)
+    try {
+        //update info in the account service
+        const updatedAccount = await accountService.updateAccount( id, body)
 
-    // return updated account
-    res.status( 200).json({
-        status: "SUCCESS",
-        data: {
-            updatedAccount
-        }
-    })
+        // return updated account
+        res.status( 200).json({
+            status: "SUCCESS",
+            data: {
+                updatedAccount
+            }
+        })
+    } catch (error) {
+        res
+          .status(error?.status || 500)
+          .json({ status: "FAILED", data: { error: error?.message || error } })
+    }
+
+    
 }
 
 const deleteAccount = async( req, res) => {
@@ -115,12 +147,18 @@ const deleteAccount = async( req, res) => {
         return
     }
 
-    // delete account from service
-    accountService.deleteAccount( id)
+    try {
+        // delete account from service
+        accountService.deleteAccount( id)
 
-    res.status( 204).json({
-        status: "SUCCESS"
-    })
+        res.status( 204).json({
+            status: "SUCCESS"
+        })
+    } catch (error) {
+        res
+          .status(error?.status || 500)
+          .json({ status: "FAILED", data: { error: error?.message || error } })
+    }
 }
 
 module.exports = { 
