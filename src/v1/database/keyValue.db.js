@@ -1,5 +1,5 @@
 const KeyValue = require( '../models/keyValue.model')
-const { getOne, updateOne } = require( './utils')
+const { getOne, updateOne } = require( '../../../db/db.utils')
 const id = 1
 
 const getOneValue = async() => {

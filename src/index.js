@@ -5,9 +5,9 @@ const morgan = require( 'morgan')
 const { morganLogs } = require('./middlewares/morgan')
 
 const v1Router = require( './v1/routes/index')
-// const v1AccountRouter = require( './v1/routes/account.routes')
+const v1AccountRouter = require( './v1/routes/account.routes')
 const v1AuthRouter = require( '../src/v1/routes/auth.routes')
-const v101AccountRouter = require( './v1.0.1/routes/account.routes')
+// const v101AccountRouter = require( './v1.0.1/routes/account.routes')
 
 const app = express()
 
@@ -24,7 +24,7 @@ app.use(express.json())
  */
  app.use("/api/v1", v1Router);
  app.use( "/api/v1/auth", v1AuthRouter)
-//  app.use('/api/v1/accounts', v1AccountRouter)
- app.use( '/api/v1.0.1/accounts', v101AccountRouter)
+ app.use('/api/v1/accounts', v1AccountRouter)
+//  app.use( '/api/v1.0.1/accounts', v101AccountRouter)
 
 module.exports =  app

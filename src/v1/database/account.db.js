@@ -34,7 +34,7 @@ const createAccount = async( newAccount) => {
     }
 }
 
-const updateAccount = async( id, account) => {
+const updateAccount = async( id, updates) => {
     //check if account exists
     const account = await getOne( Account, id)
 
@@ -46,7 +46,7 @@ const updateAccount = async( id, account) => {
     }
 
     try {
-        return updateOne(Account, id, account)
+        return updateOne(Account, id, updates)
     } catch (error) {
         throw {
             status: 500, 

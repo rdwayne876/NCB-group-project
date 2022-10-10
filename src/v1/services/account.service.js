@@ -3,7 +3,7 @@ const KeyValue = require( "../database/keyValue.db")
 
 const getAllAcounts = async() => {
     // Query db for accounts
-    const allAccounts = await accountModel.getAllAcounts()
+    const allAccounts = await Account.getAllAcounts()
     return allAccounts
 }
 
@@ -35,9 +35,9 @@ const createAccount = async( newAccount) => {
     }
 }
 
-const updateAccount = async( updatedAccount, id) => {
+const updateAccount = async( updates, id) => {
     // Query db to update record
-    const updatedAccount = await Account.updateOneAccount( updatedAccount, id)
+    const updatedAccount = await Account.updateAccount( updates, id)
 
     return updatedAccount
 }
