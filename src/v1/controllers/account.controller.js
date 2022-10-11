@@ -129,13 +129,13 @@ const updateAccount = async( req, res) => {
           .status(error?.status || 500)
           .json({ status: "FAILED", data: { error: error?.message || error } })
     }
-
-    
 }
 
 const deleteAccount = async( req, res) => {
     // get id from params
-    const { params: {id}} = req
+    const { params: id} = req
+
+    console.log(id);
     // throw error if id is not present
     if( !id) {
         res.status( 400).json({
@@ -149,10 +149,13 @@ const deleteAccount = async( req, res) => {
 
     try {
         // delete account from service
-        accountService.deleteAccount( id)
+        await accountService.deleteAccount( id)
 
-        res.status( 204).json({
-            status: "SUCCESS"
+        res.status( 204).send({
+            status: "SUCCESS",
+            data: {
+                message: "Account deleted successfully"
+            }
         })
     } catch (error) {
         res
