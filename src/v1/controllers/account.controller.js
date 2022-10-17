@@ -21,7 +21,7 @@ const getAllAccounts = async( req, res) => {
 
 const getAccount = async( req, res) => {
     //get id and data from request params and body
-    const { body, params: id} = req
+    const { params: id, user} = req
 
     // throw error if id is not present
     if( !id) {
@@ -38,6 +38,15 @@ const getAccount = async( req, res) => {
         // get one account
         const account = await accountService.getAccount( id)
 
+        if( account.userID != user.user){
+            res.status( 403).json({
+                status: "FAILED",
+                data: {
+                    error: "You do not have permission to view this account"
+                }
+            })
+            return
+        }
         // return account
         res.status( 200).json({
             status: "SUCCESS",
@@ -100,7 +109,7 @@ const createAccount = async( req, res) => {
 
 const updateAccount = async( req, res) => {
     //get id and data from request params and body
-    const { body, params: id} = req
+    const { body, params: id, user} = req
 
     // throw error if id is not present
     if( !id) {
@@ -114,6 +123,18 @@ const updateAccount = async( req, res) => {
     }
 
     try {
+        // get one account
+        const account = await accountService.getAccount( id)
+
+        if( account.userID != user.user){
+            res.status( 403).json({
+                status: "FAILED",
+                data: {
+                    error: "You do not have permission to view this account"
+                }
+            })
+            return
+        }
         //update info in the account service
         const updatedAccount = await accountService.updateAccount( id, body)
 

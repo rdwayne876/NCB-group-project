@@ -1,4 +1,5 @@
 const User = require( '../database/user.db')
+const idVerificationService = require( './idVerification.service')
 const bcrypt = require( 'bcryptjs')
 const salt = bcrypt.genSaltSync(10)
 const { createAccessToken} = require( '../../../utils/token')
@@ -18,6 +19,8 @@ const registerUser = async( newUser, password) => {
         const createdUser = await User.createUser( userToCreate)
         // generate access token
         const accessToken = createAccessToken({user: createdUser._id})
+
+        const updatedId = await idVerificationService.verifyUser(createdUser.idVerification)
 
         return { createdUser, accessToken}
     } catch (error) {

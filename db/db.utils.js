@@ -22,4 +22,8 @@ const deleteOne = async( model, id) => {
     return await model.findByIdAndDelete( id)
 }
 
-module.exports = { getAll, getOne, createOne, updateOne, deleteOne, find }
+const findAndDelete = async( model, queryObject) => {
+    return await model.findOneAndDelete( queryObject)
+}
+
+module.exports = { getAll, getOne, createOne, updateOne, deleteOne, find, findAndDelete }

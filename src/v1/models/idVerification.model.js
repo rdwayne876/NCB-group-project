@@ -14,6 +14,10 @@ const idVerificationSchema = new mongoose.Schema({
         type: Date,
         required: [ true, "ID expiry Date must be specified"]
     },
+    userCreated: {
+        type: Boolean,
+        default: false
+    }, 
     image:{
         type: String
     }

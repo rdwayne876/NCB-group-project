@@ -60,7 +60,12 @@ const registerUser = async( req, res) => {
             data: registeredUser
         })
     } catch (error) {
-        console.error(error);
+        const savedId = await idVerificationService.findId( {$and: [{number: body.idNumber}, {userCreated: false}]})
+
+        console.log( savedId);
+        if( savedId.length >= 1) {
+            await idVerificationService.deleteIdonFail( {number: body.idNumber})
+        }
         res
           .status(error?.status || 500)
           .json({ status: "FAILED", data: { error: error?.message || error } });
