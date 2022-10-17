@@ -8,7 +8,7 @@ app = require('./index')
 database()
 
 //Run app server
-const server = app.listen( process.env.PORT, "0.0.0.0", () => {
+const server = app.listen( process.env.PORT, () => {
     console.log(`Server running on PORT ${process.env.PORT}`)
     V1SwaggerDocs( app, process.env.PORT)
 })
