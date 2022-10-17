@@ -42,7 +42,7 @@ const getAccount = async( req, res) => {
             res.status( 403).json({
                 status: "FAILED",
                 data: {
-                    error: "You do not have permission to view this account"
+                    error: "You do not have permission to access this account"
                 }
             })
             return
@@ -130,7 +130,7 @@ const updateAccount = async( req, res) => {
             res.status( 403).json({
                 status: "FAILED",
                 data: {
-                    error: "You do not have permission to view this account"
+                    error: "You do not have permission to access this account"
                 }
             })
             return
@@ -168,7 +168,22 @@ const deleteAccount = async( req, res) => {
         return
     }
 
+    
     try {
+
+        // get one account
+        const account = await accountService.getAccount( id)
+
+        if( account.userID != user.user){
+            res.status( 403).json({
+                status: "FAILED",
+                data: {
+                    error: "You do not have permission to access this account"
+                }
+            })
+            return
+        }
+
         // delete account from service
         await accountService.deleteAccount( id)
 
