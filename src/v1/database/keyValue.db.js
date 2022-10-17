@@ -1,8 +1,7 @@
 const KeyValue = require( '../models/keyValue.model')
 const { getOne, updateOne } = require( '../../../db/db.utils')
-const id = "63443741b666aecc3faee5b1"
 
-const getOneValue = async() => {
+const getOneValue = async( id) => {
     try { 
         return getOne( KeyValue, id)
     } catch (error) {
@@ -11,7 +10,7 @@ const getOneValue = async() => {
     }
 }
 
-const updateOneValue = async( newValue) => {
+const updateOneValue = async( id, newValue) => {
     try {
         return updateOne( KeyValue, id, newValue)
     } catch (error) {

@@ -6,13 +6,13 @@ const transactionSchema = new mongoose.Schema({
         required: [ true, " Account Id must be specified"]
     },
     openingBalance: {
-        type: Numbe
+        type: Number
     },
     closingBalance: {
         type: Number
     },
     type: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId, 
         required: [ true, ' Name must be specified']
     },
     amount: {

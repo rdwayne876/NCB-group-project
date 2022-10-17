@@ -1,5 +1,6 @@
 const Account = require("../database/account.db")
 const KeyValue = require( "../database/keyValue.db")
+const accNoId = "63443741b666aecc3faee5b1"
 
 const getAllAcounts = async() => {
     // Query db for accounts
@@ -15,7 +16,7 @@ const getAccount = async( id, user) => {
 
 const createAccount = async( newAccount) => {
     // Get acc #
-    const accNo = await KeyValue.getOneValue()
+    const accNo = await KeyValue.getOneValue( accNoId)
 
     console.log(accNo);
 
@@ -31,7 +32,7 @@ const createAccount = async( newAccount) => {
     // if successful
     if( createdAccount) {
         accNo.value ++
-        KeyValue.updateOneValue( accNo)
+        KeyValue.updateOneValue( accNoId, accNo)
 
         return createdAccount
     }
