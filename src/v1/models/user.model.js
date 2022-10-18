@@ -1,5 +1,4 @@
 const mongoose = require( 'mongoose')
-const { stringify } = require('querystring')
 
 const userSchema = new mongoose.Schema({
     firstName:{
@@ -63,9 +62,20 @@ const userSchema = new mongoose.Schema({
     creditCards: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "creditCard"
+            ref: "CreditCard"
         }
-    ]
+    ], 
+    debitCard:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: "DebitCard",
+        required: [true, "An id must be specified to verify user"]
+    },
+    beneficiaries: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Beneficiary'
+        }
+    ],
 },
 {
     timestamps: true
