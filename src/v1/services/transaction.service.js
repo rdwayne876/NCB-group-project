@@ -11,11 +11,10 @@ const createTransaction = async( newTransaction) => {
 
     // get account to obtain opening balance and closing balance
     const account = await Account.getAccount( newTransaction.accId)
-    console.log( account);
 
     const openingBalance = account.balance
 
-    const closingBalance =  newTransaction.Type = credit ? openingBalance + newTransaction.amount :  openingBalance - newTransaction.amount
+    const closingBalance =  newTransaction.type == credit ? openingBalance + newTransaction.amount : openingBalance - newTransaction.amount
 
     // add new values to object
     const transactionToInsert ={
@@ -33,8 +32,10 @@ const createTransaction = async( newTransaction) => {
         transId.value ++
         KeyValue.updateOneValue( transNoId, transId)
 
-        const updatedAccount = await accountService.updateAccount(  account._id, {balance: createdTransaction.closingBalance})
-        console.log( updatedAccount);
+        account['transactions'].push( createdTransaction._id)
+        account.balance = newTransaction.type == credit ? account.balance + newTransaction.amount : account.balance - newTransaction.amount
+
+        account.save()
 
         return createdTransaction
     }

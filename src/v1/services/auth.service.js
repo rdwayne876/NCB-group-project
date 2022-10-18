@@ -34,12 +34,9 @@ const login = async( username, password) => {
         // get user from username
         const user = await User.findUser({username: username})
 
-        console.log(user);
-
         if( user && ( await bcrypt.compare( password, user.password))){
             //generate access token
             accessToken = createAccessToken({ user: user._id})
-            console.log(accessToken);
 
             return { user, accessToken}
         }

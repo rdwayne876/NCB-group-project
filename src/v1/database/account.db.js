@@ -66,4 +66,5 @@ const deleteAccount = async( id) => {
     }
 }
 
+
 module.exports = { getAllAcounts, getAccount, createAccount, updateAccount, deleteAccount}

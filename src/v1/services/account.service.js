@@ -18,7 +18,6 @@ const createAccount = async( newAccount) => {
     // Get acc #
     const accNo = await KeyValue.getOneValue( accNoId)
 
-    console.log(accNo);
 
     //insert account #
     const accountToInsert = {

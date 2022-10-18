@@ -5,11 +5,8 @@ const saveId = async( newId) => {
     //check for existing Id
     const existingId = await find( idVerification, {number: newId.number})
 
-    console.log( existingId);
-
     if( existingId.length != 0){  
         // Throw error if id already exists
-        console.log("shit happens here");
         throw {
             status: 409,
             message: 'Id already exists'
