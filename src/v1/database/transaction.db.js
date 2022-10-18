@@ -21,7 +21,7 @@ const getTransaction = async( id) => {
     }    
 }
 
-module.exporst = {
+module.exports = {
     createTransaction,
     getTransaction
 }

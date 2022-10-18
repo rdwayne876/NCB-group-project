@@ -38,9 +38,9 @@ const createAccount = async( newAccount) => {
     }
 }
 
-const updateAccount = async( updates, id) => {
+const updateAccount = async( id, updates) => {
     // Query db to update record
-    const updatedAccount = await Account.updateAccount( updates, id)
+    const updatedAccount = await Account.updateAccount(  id, updates)
 
     return updatedAccount
 }

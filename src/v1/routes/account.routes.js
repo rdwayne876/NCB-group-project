@@ -6,7 +6,7 @@ router.route( '/').get(accountController.getAllAccounts)
                     .post( validateToken, accountController.createAccount)
 
 router.route( '/:_id').get( validateToken, accountController.getAccount)
-                        .patch( accountController.updateAccount)
-                        .delete( accountController.deleteAccount)
+                        .patch( validateToken, accountController.updateAccount)
+                        .delete( validateToken, accountController.deleteAccount)
 
 module.exports = router

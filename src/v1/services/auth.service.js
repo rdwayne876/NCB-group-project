@@ -39,6 +39,7 @@ const login = async( username, password) => {
         if( user && ( await bcrypt.compare( password, user.password))){
             //generate access token
             accessToken = createAccessToken({ user: user._id})
+            console.log(accessToken);
 
             return { user, accessToken}
         }
