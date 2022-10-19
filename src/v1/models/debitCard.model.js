@@ -1,13 +1,13 @@
 const mongoose = require( 'mongoose')
 
 const debitCardSchema = new mongoose.Schema({
-    nameOnCard: {
+    name: {
         type: String
     },
     cardNumber: {
-        type: string
+        type: String
     },
-    expirationDate: {
+    expDate: {
         type: Date
     },
     cvv: {

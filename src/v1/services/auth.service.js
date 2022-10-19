@@ -1,8 +1,12 @@
 const User = require( '../database/user.db')
 const idVerificationService = require( './idVerification.service')
+const accountService = require( '../services/account.service')
+const debitCardService =  require( '../services/debitCard.service')
 const bcrypt = require( 'bcryptjs')
 const salt = bcrypt.genSaltSync(10)
 const { createAccessToken} = require( '../../../utils/token')
+const savings = "63443d80b666aecc3faee5bc"
+const jmd = "6344c863b666aecc3faee5c2"
 
 const registerUser = async( newUser, password) => {
     //hash password
@@ -17,10 +21,23 @@ const registerUser = async( newUser, password) => {
     try {
         //Create user
         const createdUser = await User.createUser( userToCreate)
+
+        await idVerificationService.verifyUser(createdUser.idVerification)
         // generate access token
         const accessToken = createAccessToken({user: createdUser._id})
+        // created user account
+        const newAccount = await accountService.createAccount( {userID: createdUser._id, accType: savings, currency: jmd})
+        // create user debit card
+        const debitCard = await debitCardService.createDebitCard({ name: `${createdUser.firstName} ${createdUser.lastName}`})
 
-        const updatedId = await idVerificationService.verifyUser(createdUser.idVerification)
+        createdUser['accounts'].push(newAccount._id)
+        createdUser.debitCard = debitCard._id
+
+        createdUser.save()
+
+        console.log( debitCard);
+
+        
 
         return { createdUser, accessToken}
     } catch (error) {

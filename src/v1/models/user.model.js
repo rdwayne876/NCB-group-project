@@ -66,9 +66,8 @@ const userSchema = new mongoose.Schema({
         }
     ], 
     debitCard:{
-        type:mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "DebitCard",
-        required: [true, "An id must be specified to verify user"]
     },
     beneficiaries: [
         {
