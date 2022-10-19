@@ -1,0 +1,37 @@
+const mongoose = require( 'mongoose')
+
+const creditCardSchema = new mongoose.Schema({
+    nameOnCard: {
+        type: String
+    },
+    cardNumber: {
+        type: string
+    },
+    expirationDate: {
+        type: Date
+    },
+    cvv: {
+        type: String
+    }, 
+    transactions: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Transactions'
+        }
+    ],
+    creditLimit: {
+        type: Number
+    },
+    availableBalance: {
+        type: Number
+    },
+    statementBalance: {
+        type: Number
+    }
+},
+{
+    timestamps: true
+}
+)
+
+module.exports = mongoose.model('CreditCard', creditCardSchema)
