@@ -2,6 +2,7 @@ const User = require( '../database/user.db')
 const idVerificationService = require( './idVerification.service')
 const accountService = require( '../services/account.service')
 const debitCardService =  require( '../services/debitCard.service')
+const creditCardService = require( '../services/creditCard.service')
 const bcrypt = require( 'bcryptjs')
 const salt = bcrypt.genSaltSync(10)
 const { createAccessToken} = require( '../../../utils/token')
@@ -28,10 +29,13 @@ const registerUser = async( newUser, password) => {
         // created user account
         const newAccount = await accountService.createAccount( {userID: createdUser._id, accType: savings, currency: jmd})
         // create user debit card
-        const debitCard = await debitCardService.createDebitCard({ name: `${createdUser.firstName} ${createdUser.lastName}`})
+        const debitCard = await debitCardService.createCard({ name: `${createdUser.firstName} ${createdUser.lastName}`})
+        // create user credit card
+        const creditCard =  await creditCardService.createCard( { name: `${createdUser.firstName} ${createdUser.lastName}`})
 
         createdUser['accounts'].push(newAccount._id)
         createdUser.debitCard = debitCard._id
+        createdUser['creditCards'].push( creditCard)
 
         createdUser.save()
 
