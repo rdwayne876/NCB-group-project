@@ -1,6 +1,6 @@
 const mongoose = require( 'mongoose')
 
-const beneficiary = new mongoose.Schema({
+const beneficiarySchema = new mongoose.Schema({
     name: {
         type: String,
         required: [ true, " Name must be specified"]
@@ -9,4 +9,8 @@ const beneficiary = new mongoose.Schema({
         type: String,
         required: [ true, " Account number must be specified"]
     }
+},{
+    timestamps: true
 })
+
+module.exports = mongoose.model( 'Beneficiary', beneficiarySchema)
