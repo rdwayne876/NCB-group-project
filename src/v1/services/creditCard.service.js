@@ -1,7 +1,8 @@
 const CreditCard = require( '../database/creditCard.db')
+const UserService = require( '../services/user.service')
 const generator = require('creditcard-generator')
 
-const  createCard = async( newCard) => {
+const  createCard = async( newCard, user) => {
     // generate card Number, exp date and cvv
     const creditCardNo = generator.GenCC("VISA", 1)
     const expDate = new Date(new Date().setFullYear(new Date().getFullYear() + 5))
@@ -18,7 +19,15 @@ const  createCard = async( newCard) => {
     }
 
     const createdCreditCard = await CreditCard.createCard( cardToCreate)
-    return createdCreditCard
+
+    if( createdCreditCard) {
+        // Save new credit card to user
+        const userDetails = await UserService.getUser( user)
+        userDetails['creditCards'].push( createdCreditCard._id)
+        userDetails.save()
+        
+        return createdCreditCard
+    }
 }
 
 const getCard = async( id) => {

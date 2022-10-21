@@ -1,5 +1,5 @@
 const User = require( '../models/user.model')
-const{ find, createOne} = require( '../../../db/db.utils')
+const{ find, createOne, getOne} = require( '../../../db/db.utils')
 
 const createUser = async( newUser) => {
     //check for existing user by username or email, cellphone or trn
@@ -36,9 +36,18 @@ const findUser = async( queryObject, options=[]) => {
     } catch ( error) {
         throw { status: 500, message: error?.message || error}
     }
-
 }
+
+const getUser = async( id) => {
+    try {
+        return getOne( User, id)
+    } catch (error) {
+        throw { status: 500, message: error?.message || error}
+    }
+}
+
 module.exports = { 
     createUser,
-    findUser
+    findUser,
+    getUser
 }

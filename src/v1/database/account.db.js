@@ -66,5 +66,16 @@ const deleteAccount = async( id) => {
     }
 }
 
+const findAccount = async( queryObject) => {
+    try {
+        return find( Account, queryObject)
+    } catch (error) {
+        throw {
+            status: 500,
+            message: error?.message || error
+        }
+    }
+}
 
-module.exports = { getAllAcounts, getAccount, createAccount, updateAccount, deleteAccount}
+
+module.exports = { getAllAcounts, getAccount, findAccount, createAccount, updateAccount, deleteAccount}

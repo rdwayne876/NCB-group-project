@@ -31,11 +31,9 @@ const registerUser = async( newUser, password) => {
         // create user debit card
         const debitCard = await debitCardService.createCard({ name: `${createdUser.firstName} ${createdUser.lastName}`})
         // create user credit card
-        const creditCard =  await creditCardService.createCard( { name: `${createdUser.firstName} ${createdUser.lastName}`})
+        const creditCard =  await creditCardService.createCard( { name: `${createdUser.firstName} ${createdUser.lastName}`}, createdUser._id)
 
-        createdUser['accounts'].push(newAccount._id)
         createdUser.debitCard = debitCard._id
-        createdUser['creditCards'].push( creditCard)
 
         createdUser.save()
 

@@ -1,5 +1,5 @@
 const Beneficiary = require( '../models/beneficiary.model')
-const { getAll, getOne, createOne, updateOne, deleteOne } = require( '../../../db/db.utils')
+const { getAll, getOne, createOne, updateOne, deleteOne, find } = require( '../../../db/db.utils')
 
 const getAllBeneficiaries = async() => {
     try {
@@ -16,6 +16,17 @@ const getBeneficiary = async( id) => {
     try {
         return getOne( Beneficiary, id)
     } catch( error){
+        throw {
+            status: 500,
+            message: error?.message || error
+        }
+    }
+}
+
+const findBeneficiary = async( queryObject) => {
+    try {
+        return find( Beneficiary, queryObject)
+    } catch (error) {
         throw {
             status: 500,
             message: error?.message || error
@@ -67,4 +78,4 @@ const deleteBeneficiary = async( id) => {
 }
 
 
-module.exports = { getAllBeneficiaries, getBeneficiary, createBeneficiary, updateBeneficiary, deleteBeneficiary}
+module.exports = { getAllBeneficiaries, getBeneficiary, findBeneficiary, createBeneficiary, updateBeneficiary, deleteBeneficiary}

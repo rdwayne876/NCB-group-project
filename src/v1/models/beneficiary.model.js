@@ -8,6 +8,9 @@ const beneficiarySchema = new mongoose.Schema({
     accNo: {
         type: String,
         required: [ true, " Account number must be specified"]
+    },
+    accId: {
+        type: mongoose.Schema.Types.ObjectId
     }
 },{
     timestamps: true
