@@ -5,6 +5,13 @@ const getUser = async( id) => {
     return user
 }
 
+const updateUser = async( id, updates) => {
+
+    const updatedUser =  await User.updateUser( id, updates)
+    return updatedUser
+}
+
 module.exports = {
-    getUser
+    getUser,
+    updateUser
 }
