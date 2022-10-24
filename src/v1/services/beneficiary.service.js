@@ -14,6 +14,11 @@ const getBeneficiary = async( id, user) => {
     return beneficiary
 }
 
+const findBeneficiary = async( queryObject) => {
+    const beneficiary = await Beneficiary.findBeneficiary( queryObject)
+    return beneficiary[0]
+}
+
 const createBeneficiary = async( newBeneficiary, user) => {
 
     // get beneficiary account to get account id
@@ -53,6 +58,7 @@ const deleteBeneficiary = async( id) => {
 
 module.exports = { 
     getBeneficiary,
+    findBeneficiary,
     getAllBeneficiaries,
     createBeneficiary,
     updateBeneficiary,

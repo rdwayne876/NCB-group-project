@@ -13,7 +13,7 @@ const transactionSchema = new mongoose.Schema({
     },
     type: {
         type: mongoose.Schema.Types.ObjectId, 
-        required: [ true, ' Name must be specified']
+        required: [ true, ' Transaction type must be specified']
     },
     amount: {
         type: Number, 
