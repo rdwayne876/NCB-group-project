@@ -9,7 +9,7 @@ const getAllAcounts = async() => {
     return allAccounts
 }
 
-const getAccount = async( id, user) => {
+const getAccount = async( id) => {
     // Query db for account
     const account =  await Account.getAccount( id)
     return account
