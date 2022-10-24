@@ -29,7 +29,8 @@ const createBeneficiary = async( newBeneficiary, user) => {
 
     if (createdBeneficiary){
         const userDetails = await UserService.getUser( user)
-        userDetails['beneficiaries'].push( createBeneficiary._id)
+        console.log(createdBeneficiary);
+        userDetails['beneficiaries'].push( createdBeneficiary._id)
         userDetails.save()
 
         return createdBeneficiary

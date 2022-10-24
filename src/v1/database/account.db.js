@@ -1,5 +1,5 @@
 const Account = require( '../models/account.model')
-const { getAll, getOne, createOne, updateOne, deleteOne } = require( '../../../db/db.utils')
+const { getAll, getOne, find, createOne, updateOne, deleteOne } = require( '../../../db/db.utils')
 
 const getAllAcounts = async() => {
     try {

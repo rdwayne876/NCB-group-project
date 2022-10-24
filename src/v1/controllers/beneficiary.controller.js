@@ -52,13 +52,13 @@ const createBeneficiary = async( req, res) => {
 
     // create new beneficiary object
     const newBeneficiary = {
-        name: body.userID,
-        accNo: body.accType
+        name: body.name,
+        accNo: body.accNo
     }
 
     try {
         // create beneficiary in service
-        const createdBeneficiary = await beneficiaryService.createBeneficiary( newBeneficiary, user)
+        const createdBeneficiary = await beneficiaryService.createBeneficiary( newBeneficiary, user.user)
 
         res.status( 201).json({
             status: "SUCCESS",
