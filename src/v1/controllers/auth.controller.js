@@ -38,7 +38,6 @@ const registerUser = async( req, res) => {
 
     try {
         const createdId = await idVerificationService.saveNewId( newId)
-        console.log(createdId);
         // save new user
         const newUser = {
             firstName: body.firstName,
@@ -62,7 +61,6 @@ const registerUser = async( req, res) => {
     } catch (error) {
         const savedId = await idVerificationService.findId( {$and: [{number: body.idNumber}, {userCreated: false}]})
 
-        console.log( savedId);
         if( savedId.length >= 1) {
             await idVerificationService.deleteIdonFail( {number: body.idNumber})
         }

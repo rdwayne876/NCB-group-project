@@ -1,4 +1,4 @@
-const Transaction = require( '../models/transaction.model')
+const Transaction = require( '../../models/transaction.model')
 const{ getOne, createOne} = require( '../../../db/db.utils')
 
 
@@ -21,7 +21,7 @@ const getTransaction = async( id) => {
     }    
 }
 
-module.exporst = {
+module.exports = {
     createTransaction,
     getTransaction
 }

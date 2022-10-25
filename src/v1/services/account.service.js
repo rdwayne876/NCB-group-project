@@ -1,4 +1,5 @@
 const Account = require("../database/account.db")
+const UserService = require( '../services/user.service')
 const KeyValue = require( "../database/keyValue.db")
 const accNoId = "63443741b666aecc3faee5b1"
 
@@ -8,17 +9,21 @@ const getAllAcounts = async() => {
     return allAccounts
 }
 
-const getAccount = async( id, user) => {
+const getAccount = async( id) => {
     // Query db for account
     const account =  await Account.getAccount( id)
     return account
+}
+
+const findAccount = async( queryObject) => {
+    const account = await Account.findAccount( queryObject)
+    return account[0]
 }
 
 const createAccount = async( newAccount) => {
     // Get acc #
     const accNo = await KeyValue.getOneValue( accNoId)
 
-    console.log(accNo);
 
     //insert account #
     const accountToInsert = {
@@ -34,13 +39,19 @@ const createAccount = async( newAccount) => {
         accNo.value ++
         KeyValue.updateOneValue( accNoId, accNo)
 
+        accountOwner = await UserService.getUser( createdAccount.userID)
+
+        accountOwner['accounts'].push( createdAccount._id)
+
+        accountOwner.save()
+
         return createdAccount
     }
 }
 
-const updateAccount = async( updates, id) => {
+const updateAccount = async( id, updates) => {
     // Query db to update record
-    const updatedAccount = await Account.updateAccount( updates, id)
+    const updatedAccount = await Account.updateAccount(  id, updates)
 
     return updatedAccount
 }
@@ -57,5 +68,6 @@ module.exports = {
     getAllAcounts,
     createAccount,
     updateAccount,
-    deleteAccount
+    deleteAccount,
+    findAccount
 }

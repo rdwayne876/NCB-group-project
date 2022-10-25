@@ -1,8 +1,13 @@
 const User = require( '../database/user.db')
 const idVerificationService = require( './idVerification.service')
+const accountService = require( '../services/account.service')
+const debitCardService =  require( '../services/debitCard.service')
+const creditCardService = require( '../services/creditCard.service')
 const bcrypt = require( 'bcryptjs')
 const salt = bcrypt.genSaltSync(10)
 const { createAccessToken} = require( '../../../utils/token')
+const savings = "63443d80b666aecc3faee5bc"
+const jmd = "6344c863b666aecc3faee5c2"
 
 const registerUser = async( newUser, password) => {
     //hash password
@@ -17,10 +22,24 @@ const registerUser = async( newUser, password) => {
     try {
         //Create user
         const createdUser = await User.createUser( userToCreate)
+
+        await idVerificationService.verifyUser(createdUser.idVerification)
         // generate access token
         const accessToken = createAccessToken({user: createdUser._id})
+        // created user account
+        const newAccount = await accountService.createAccount( {userID: createdUser._id, accType: savings, currency: jmd})
+        // create user debit card
+        const debitCard = await debitCardService.createCard({ name: `${createdUser.firstName} ${createdUser.lastName}`})
+        // create user credit card
+        const creditCard =  await creditCardService.createCard( { name: `${createdUser.firstName} ${createdUser.lastName}`}, createdUser._id)
 
-        const updatedId = await idVerificationService.verifyUser(createdUser.idVerification)
+        createdUser.debitCard = debitCard._id
+
+        createdUser.save()
+
+        console.log( debitCard);
+
+        
 
         return { createdUser, accessToken}
     } catch (error) {
@@ -33,8 +52,6 @@ const login = async( username, password) => {
     try {
         // get user from username
         const user = await User.findUser({username: username})
-
-        console.log(user);
 
         if( user && ( await bcrypt.compare( password, user.password))){
             //generate access token

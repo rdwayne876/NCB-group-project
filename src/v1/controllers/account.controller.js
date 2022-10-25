@@ -156,7 +156,6 @@ const deleteAccount = async( req, res) => {
     // get id from params
     const { params: id} = req
 
-    console.log(id);
     // throw error if id is not present
     if( !id) {
         res.status( 400).json({
