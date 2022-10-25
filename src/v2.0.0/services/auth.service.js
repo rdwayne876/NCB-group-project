@@ -1,5 +1,4 @@
 const User = require( '../database/user.db')
-const idVerificationService = require( './idVerification.service')
 const accountService = require( './account.service')
 const debitCardService =  require( './debitCard.service')
 const creditCardService = require( './creditCard.service')
@@ -23,7 +22,6 @@ const registerUser = async( newUser, password) => {
         //Create user
         const createdUser = await User.createUser( userToCreate)
 
-        await idVerificationService.verifyUser(createdUser.idVerification)
         // generate access token
         const accessToken = createAccessToken({user: createdUser._id})
         // created user account
@@ -35,11 +33,7 @@ const registerUser = async( newUser, password) => {
 
         createdUser.debitCard = debitCard._id
 
-        createdUser.save()
-
-        console.log( debitCard);
-
-        
+        createdUser.save()     
 
         return { createdUser, accessToken}
     } catch (error) {
