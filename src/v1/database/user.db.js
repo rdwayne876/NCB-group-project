@@ -1,4 +1,4 @@
-const User = require( '../models/user.model')
+const User = require( '../../models/user.model')
 const{ find, createOne, getOne, updateOne} = require( '../../../db/db.utils')
 
 const createUser = async( newUser) => {

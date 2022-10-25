@@ -1,4 +1,4 @@
-const Transfer = require( '../models/transfer.model')
+const Transfer = require( '../../models/transfer.model')
 const {  createOne, } = require( '../../../db/db.utils')
 
 const createTransfer = async( newTransfer) => {
