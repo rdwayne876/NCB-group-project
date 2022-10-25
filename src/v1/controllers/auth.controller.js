@@ -38,7 +38,6 @@ const registerUser = async( req, res) => {
 
     try {
         const createdId = await idVerificationService.saveNewId( newId)
-        console.log(createdId);
         // save new user
         const newUser = {
             firstName: body.firstName,
@@ -60,7 +59,11 @@ const registerUser = async( req, res) => {
             data: registeredUser
         })
     } catch (error) {
-        console.error(error);
+        const savedId = await idVerificationService.findId( {$and: [{number: body.idNumber}, {userCreated: false}]})
+
+        if( savedId.length >= 1) {
+            await idVerificationService.deleteIdonFail( {number: body.idNumber})
+        }
         res
           .status(error?.status || 500)
           .json({ status: "FAILED", data: { error: error?.message || error } });

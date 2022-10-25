@@ -1,5 +1,5 @@
 const Account = require( '../models/account.model')
-const { getAll, getOne, createOne, updateOne, deleteOne } = require( '../../../db/db.utils')
+const { getAll, getOne, find, createOne, updateOne, deleteOne } = require( '../../../db/db.utils')
 
 const getAllAcounts = async() => {
     try {
@@ -66,4 +66,16 @@ const deleteAccount = async( id) => {
     }
 }
 
-module.exports = { getAllAcounts, getAccount, createAccount, updateAccount, deleteAccount}
+const findAccount = async( queryObject) => {
+    try {
+        return find( Account, queryObject)
+    } catch (error) {
+        throw {
+            status: 500,
+            message: error?.message || error
+        }
+    }
+}
+
+
+module.exports = { getAllAcounts, getAccount, findAccount, createAccount, updateAccount, deleteAccount}

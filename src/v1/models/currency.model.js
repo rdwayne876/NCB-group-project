@@ -1,5 +1,4 @@
 const mongoose = require( 'mongoose')
-const json = require( '../../../utils/currencies.json')
 
 const currencySchema = new mongoose.Schema({
     name: {

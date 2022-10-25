@@ -1,9 +1,9 @@
 const User = require( '../models/user.model')
-const{ find, createOne} = require( '../../../db/db.utils')
+const{ find, createOne, getOne, updateOne} = require( '../../../db/db.utils')
 
 const createUser = async( newUser) => {
-    //check for existing user by username or email
-    const existingUser = await find(User, { email: newUser.email, username: newUser.email})
+    //check for existing user by username or email, cellphone or trn
+    const existingUser = await find(User, { $or: [{email: newUser.email}, {username: newUser.email}, {cellPhone: newUser.cellPhone}, {trn: newUser.trn}]})
     
     if( existingUser.length != 0) {
         // throw error if user already exists
@@ -36,9 +36,27 @@ const findUser = async( queryObject, options=[]) => {
     } catch ( error) {
         throw { status: 500, message: error?.message || error}
     }
-
 }
+
+const getUser = async( id) => {
+    try {
+        return getOne( User, id)
+    } catch (error) {
+        throw { status: 500, message: error?.message || error}
+    }
+}
+
+const updateUser = async( id, updates) => {
+    try {
+        return updateOne( User, id, updates)
+    } catch (error) {
+        throw { status: 500, message: error?.message || error}
+    }
+}
+
 module.exports = { 
     createUser,
-    findUser
+    findUser,
+    getUser,
+    updateUser
 }
