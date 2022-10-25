@@ -15,7 +15,8 @@ const  createCard = async( newCard, user) => {
         cardNumber: creditCardNo[0],
         expDate: expDate,
         cvv: cvv,
-        creditLimit
+        creditLimit,
+        availableBalance: creditLimit
     }
 
     const createdCreditCard = await CreditCard.createCard( cardToCreate)

@@ -11,13 +11,18 @@ const createTransaction = async( newTransaction) => {
 
     // get account to obtain opening balance and closing balance
     const account = await accountService.getAccount( newTransaction.accId)
+    
+    console.log(account);
 
     if( !account){
         const card = await creditCardService.getCard( newTransaction.accId)
+        console.log(card);
 
         const openingBalance = card.availableBalance
 
         const closingBalance = newTransaction.type == credit ? openingBalance + newTransaction.amount : openingBalance - newTransaction.amount
+
+        console.log( openingBalance)
 
         // add new values to object
         const transactionToInsert ={

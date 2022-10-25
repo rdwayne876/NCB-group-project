@@ -16,7 +16,7 @@ const updateUser = async( req, res) => {
     }
 
     // check if user is authorized
-    if( id != user.user){
+    if( id._id != user.user){
         res.status( 403).json({
             status: "FAILED",
             data: {
