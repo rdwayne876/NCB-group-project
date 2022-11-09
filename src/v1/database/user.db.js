@@ -57,9 +57,18 @@ const updateUser = async( id, updates) => {
     }
 }
 
+const getAllTypes = async() => {
+    try {
+        return [await getAll( TransactionType),await getAll( AccType), await getAll( Currency)]
+    } catch( error) {
+        throw { status: 500, message: error?.message || error}
+    }
+}
+
 module.exports = { 
     createUser,
     findUser,
     getUser,
-    updateUser
+    updateUser,
+    getAllTypes
 }
