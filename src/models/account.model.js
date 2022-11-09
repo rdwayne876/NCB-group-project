@@ -17,6 +17,7 @@ const accountSchema = new mongoose.Schema({
     },
     currency:{
         type: mongoose.Schema.Types.ObjectId,
+        ref: "Currency",
         required: [ true, "Account currency must be specified"]
     },
     balance:{

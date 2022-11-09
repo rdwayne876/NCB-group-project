@@ -57,6 +57,31 @@ const login = async( username, password) => {
             //generate access token
             accessToken = createAccessToken({ user: user._id})
 
+            await user.populate([
+                {
+                    path: 'accounts', 
+                    select: { 'userID': 0}, 
+                    populate:[
+                        {path: 'accType'}, 
+                        {path: 'currency'}, 
+                        {
+                            path: 'transactions',
+                            populate: 'type'
+                        }
+                    ]
+                },
+                {
+                    path: 'creditCards',
+                    populate: {
+                        path: 'transactions',
+                        populate: [{path: 'transactions'}]
+                    }
+                },
+                {
+                    path: 'beneficiaries'
+                }
+            ])
+
             return { user, accessToken}
         }
         

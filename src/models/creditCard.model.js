@@ -16,7 +16,7 @@ const creditCardSchema = new mongoose.Schema({
     transactions: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Transactions'
+            ref: 'TransactionType'
         }
     ],
     creditLimit: {
