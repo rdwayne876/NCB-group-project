@@ -1,4 +1,7 @@
 const User = require( '../../models/user.model')
+const TransactionType = require( '../../models/transactionType.model')
+const AccType = require( '../../models/accountType.model')
+const Currency = require( '../../models/currency.model')
 const{ find, createOne, getOne, updateOne} = require( '../../../db/db.utils')
 
 const createUser = async( newUser) => {
