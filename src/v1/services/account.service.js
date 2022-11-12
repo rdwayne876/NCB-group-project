@@ -12,6 +12,8 @@ const getAllAcounts = async() => {
 const getAccount = async( id) => {
     // Query db for account
     const account =  await Account.getAccount( id)
+
+    await account.populate('transactions')
     return account
 }
 
