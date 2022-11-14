@@ -21,8 +21,9 @@ const findBeneficiary = async( queryObject) => {
 
 const createBeneficiary = async( newBeneficiary, user) => {
 
+
     // get beneficiary account to get account id
-    const beneficiaryAccount = await AccountService.findAccount({AccNo: newBeneficiary.AccNo})
+    const beneficiaryAccount = await AccountService.findAccount({accNo: newBeneficiary.accNo})
 
     // add id to insert
     beneficiaryToInsert = {
