@@ -84,9 +84,8 @@ const getUser = async( req, res) => {
           .status(error?.status || 500)
           .json({ status: "FAILED", data: { error: error?.message || error } })
     }
-
-
 }
+
 
 module.exports = {
     updateUser,
