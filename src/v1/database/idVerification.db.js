@@ -1,4 +1,4 @@
-const idVerification = require( '../models/idVerification.model')
+const idVerification = require( '../../models/idVerification.model')
 const {find, createOne, deleteOne, findAndDelete, getOne, updateOne} = require( '../../../db/db.utils');
 
 const saveId = async( newId) => {

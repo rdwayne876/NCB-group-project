@@ -44,6 +44,50 @@ const updateUser = async( req, res) => {
 
 }
 
+const getUser = async( req, res) => {
+
+    const { params: id, user} = req
+
+    // throw error if id is not present
+    if( !id) {
+        res.status( 400).json({
+            status: "FAILED",
+            data: {
+                error: "User not found"
+            }
+        })
+        return
+    }
+
+     // check if user is authorized
+     if( id._id != user.user){
+        res.status( 403).json({
+            status: "FAILED",
+            data: {
+                error: "You do not have permission to access this account"
+            }
+        })
+        return
+    }
+
+    try {
+        const user = await userService.getUser( id)
+        // return  user
+        res.status( 200).json({
+            status: "SUCCESS",
+            data: {
+                user
+            }
+        })
+    } catch (error) {
+        res
+          .status(error?.status || 500)
+          .json({ status: "FAILED", data: { error: error?.message || error } })
+    }
+}
+
+
 module.exports = {
-    updateUser
+    updateUser,
+    getUser
 }

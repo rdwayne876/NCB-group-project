@@ -1,4 +1,4 @@
-const DebitCard = require( '../models/debitCard.model')
+const DebitCard = require( '../../models/debitCard.model')
 const {find, createOne, deleteOne, findAndDelete, getOne, updateOne} = require( '../../../db/db.utils');
 
 

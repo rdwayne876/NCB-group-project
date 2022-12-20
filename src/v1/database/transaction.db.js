@@ -1,4 +1,4 @@
-const Transaction = require( '../models/transaction.model')
+const Transaction = require( '../../models/transaction.model')
 const{ getOne, createOne} = require( '../../../db/db.utils')
 
 

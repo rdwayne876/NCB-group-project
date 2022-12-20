@@ -1,4 +1,5 @@
 const express = require( 'express')
+const cors = require( 'cors')
 require( 'dotenv').config()
 
 const morgan = require( 'morgan')
@@ -22,6 +23,7 @@ app.use( morgan('dev'))
 app.use( morganLogs)
 app.use( express.urlencoded({extended: true}))
 app.use(express.json())
+app.use(cors())
 
 /**
  * APP ROUTING

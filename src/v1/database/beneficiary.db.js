@@ -1,4 +1,4 @@
-const Beneficiary = require( '../models/beneficiary.model')
+const Beneficiary = require( '../../models/beneficiary.model')
 const { getAll, getOne, createOne, updateOne, deleteOne, find } = require( '../../../db/db.utils')
 
 const getAllBeneficiaries = async() => {
